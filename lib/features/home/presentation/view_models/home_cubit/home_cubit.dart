@@ -33,7 +33,7 @@ class HomeCubit extends Cubit<HomeState> {
     BlocProvider(
       create: (context) => SettingsCubit(
         getIt.get<SettingsRepoImpl>(),
-      )..getProfile(),
+      ),
       child: const SettingsView(),
     ),
   ];
@@ -51,7 +51,7 @@ class HomeCubit extends Cubit<HomeState> {
     }, (response) {
       if (response.status == true) {
         homeDataResponse = response;
-        emit(HomeGetDataSuccess(homeDataResponse));
+        emit(HomeGetDataSuccess(response));
       } else {
         emit(HomeGetDataFailure('error'));
       }

@@ -7,6 +7,7 @@ import 'package:store_app/features/auth/presentation/view_models/cubits/login_cu
 import 'package:store_app/features/cart/presentation/view_models/cart_cubit/cart_cubit.dart';
 import 'package:store_app/features/favourites/presentation/view_models/favourites_cubit/favourites_cubit.dart';
 import 'package:store_app/features/home/data/repos/home_repo/home_repo_impl.dart';
+import 'package:store_app/features/home/data/repos/search_repo/search_repo_impl.dart';
 import 'package:store_app/features/home/presentation/views/home_view/home_view.dart';
 import 'package:store_app/features/home/presentation/views/home_view/widgets/cart_button.dart';
 import 'package:store_app/features/home/presentation/views/home_view/widgets/home_app_bar.dart';
@@ -38,7 +39,9 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (context) => SearchCubit(),
+          create: (context) => SearchCubit(
+            getIt.get<SearchRepoImpl>()
+          ),
           child: const HomeAppBar(),
         ),
         BlocProvider(

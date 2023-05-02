@@ -4,7 +4,7 @@ import 'package:store_app/core/widgets/custom_name_bio_view.dart';
 import 'package:store_app/features/settings/presentation/views/edit_profile_view/widgets/custom_text_field.dart';
 
 class EditProfileDetails extends StatelessWidget {
-   const EditProfileDetails({Key? key}) : super(key: key);
+  const EditProfileDetails({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -26,8 +26,8 @@ class EditProfileDetails extends StatelessWidget {
             height: 15,
           ),
           const NameAndBio(
-            name: 'userData!.name!',
-            email: 'userData.email!',
+            name: 'Mina Zarif',
+            email: 'mina1062016665@gmail.com',
           ),
           const SizedBox(
             height: 30,
@@ -46,11 +46,11 @@ class EditProfileDetails extends StatelessWidget {
                 const SizedBox(
                   height: 8,
                 ),
-                CustomTextField(
+                /* CustomTextField(
                   controller: TextEditingController(),
                   label: 'Bio',
                   validator: (value) {},
-                ),
+                ),*/
                 const SizedBox(
                   height: 8,
                 ),
@@ -63,7 +63,7 @@ class EditProfileDetails extends StatelessWidget {
                 const SizedBox(
                   height: 8,
                 ),
-                CustomTextField(
+                /* CustomTextField(
                   controller: TextEditingController(),
                   label: 'Password',
                   type: TextInputType.visiblePassword,
@@ -84,7 +84,7 @@ class EditProfileDetails extends StatelessWidget {
                 ),
                 const SizedBox(
                   height: 8,
-                ),
+                ),*/
                 CustomTextField(
                   controller: TextEditingController(),
                   label: 'phone',

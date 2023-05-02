@@ -37,6 +37,7 @@ class AccountView extends StatelessWidget {
                 NameAndBio(
                   name: CacheHelper.getData(key: kName),
                   email: CacheHelper.getData(key: kEmail),
+                  crossAxisAlignment: CrossAxisAlignment.start,
                 ),
                 const Spacer(),
                 Icon(

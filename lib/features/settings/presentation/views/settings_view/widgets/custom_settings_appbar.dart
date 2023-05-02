@@ -17,6 +17,7 @@ class CustomSettingsAppBar extends StatelessWidget {
             iconData: Icons.arrow_back_sharp,
             onTap: () {
               cubit.changeNavBarIndex(0);
+              // AppRouter.router.pushReplacement(AppRouter.kHomeView);
             }),
         const SizedBox(
           height: 20,

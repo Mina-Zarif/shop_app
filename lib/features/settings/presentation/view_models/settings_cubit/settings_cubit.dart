@@ -10,19 +10,7 @@ class SettingsCubit extends Cubit<SettingsState> {
 
   final SettingsRepoImpl _settingsRepoImpl;
 
-  Future<void> getProfile() async {
-    emit(GetProfileLoading());
-    var response = await _settingsRepoImpl.getProfile();
-    response.fold((failure) {
-      emit(GetProfileFailure(failure.errMessage));
-    }, (response) {
-      if (response.status == false) {
-        emit(GetProfileFailure('error'));
-      } else {
-        emit(GetProfileSuccess(response));
-      }
-    });
-  }
+
 
   Future<void> logout() async {
     emit(LogOutSuccess());

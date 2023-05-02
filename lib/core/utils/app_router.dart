@@ -20,6 +20,8 @@ import 'package:store_app/features/home/presentation/view_models/details_cubit/d
 import 'package:store_app/features/home/presentation/view_models/home_cubit/home_cubit.dart';
 import 'package:store_app/features/on_boarding/presentation/view_model/on_boarding_cubit/on_boarding_cubit.dart';
 import 'package:store_app/features/on_boarding/presentation/views/on_boarding_view.dart';
+import 'package:store_app/features/settings/data/repos/settings_repo/settings_repo_impl.dart';
+import 'package:store_app/features/settings/presentation/view_models/settings_cubit/settings_cubit.dart';
 import 'package:store_app/features/settings/presentation/views/edit_profile_view/edit_profile_view.dart';
 
 abstract class AppRouter {
@@ -72,7 +74,10 @@ abstract class AppRouter {
       ),
       GoRoute(
         path: kEditProfileView,
-        builder: (context, state) => const EditProfileView(),
+        builder: (context, state) => BlocProvider(
+            create: (context) =>
+                SettingsCubit(getIt.get<SettingsRepoImpl>()),
+            child: const EditProfileView()),
       ),
       GoRoute(
           path: kCartView,

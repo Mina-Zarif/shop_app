@@ -6,6 +6,8 @@ const kRegisterEndpoint = 'register';
 
 const kLogoutEndpoint = 'logout';
 
+const kSearchEndpoint = 'search';
+
 const kHomeEndpoint = 'home';
 
 const kDetailsEndpoint = 'products';
@@ -15,6 +17,7 @@ const kAddOrRemoveCartEndpoint = 'carts';
 const kGetCartEndpoint = 'carts';
 
 const kProfileEndpoint = 'profile';
+const kUpdateProfile = 'update-profile';
 
 const kFavouritesEndpoint = 'favorites';
 

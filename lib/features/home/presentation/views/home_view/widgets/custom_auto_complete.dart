@@ -1,52 +1,68 @@
 import 'dart:math';
-
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:store_app/constants.dart';
+import 'package:store_app/features/home/data/models/search_model/datum.dart';
+import 'package:store_app/features/home/presentation/view_models/search_cubit/search_cubit.dart';
 import 'package:store_app/features/home/presentation/views/home_view/widgets/search_text_field.dart';
 
 class AutocompleteExample extends StatelessWidget {
-  AutocompleteExample({super.key});
-
-  final TextEditingController _textEditingController = TextEditingController();
-  final List<String> _suggestions = [
-    'Apple',
-    'Banana',
-    'Cherry',
-    'Duran',
-    'Elderberry',
-    'Fig',
-  ];
+  const AutocompleteExample({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Autocomplete<String>(
-      optionsViewBuilder: (context, onSelected, options) {
-        return OptionView(
-          options: options,
-          context: context,
-          onSelected: onSelected,
-        );
-      },
-      optionsBuilder: (TextEditingValue textEditingValue) {
-        if (textEditingValue.text.isEmpty) {
-          return const Iterable<String>.empty();
-        }
-        return _suggestions;
-      },
-      onSelected: (String selection) {
-        _textEditingController.text = selection;
-        /// TODO: Navigate to details
-      },
-      fieldViewBuilder: (BuildContext context,
-          TextEditingController textEditingController,
-          FocusNode focusNode,
-          VoidCallback onFieldSubmitted) {
-        return SizedBox(
-          height: 50,
-          width: MediaQuery.of(context).size.width * 0.6,
-          child: SearchTextField(
-            controller: textEditingController,
-            focusNode: focusNode,
-          ),
+    return BlocBuilder<SearchCubit, SearchState>(
+      builder: (context, state) {
+        SearchCubit cubit = BlocProvider.of(context);
+        return Autocomplete<Datum>(
+          optionsViewBuilder: (context, onSelected, options) {
+            return OptionView(
+              options: options,
+              context: context,
+              onSelected: onSelected,
+            );
+          },
+          displayStringForOption: (option) => option.name!,
+          optionsBuilder: (TextEditingValue textEditingValue) {
+            if (textEditingValue.text.isEmpty) {
+              return const Iterable<Datum>.empty();
+            }
+            if (state is SearchSuccess) {
+              return state.searchModel.data!.data!;
+            } else {
+              return const Iterable<Datum>.empty();
+            }
+          },
+          onSelected: (Datum selection) {
+            /*_textEditingController.text = selection;*/
+
+            /// TODO: Navigate to details
+          },
+          fieldViewBuilder: (BuildContext context,
+              TextEditingController textEditingController,
+              FocusNode focusNode,
+              VoidCallback onFieldSubmitted) {
+            return SizedBox(
+              height: 60,
+              width: MediaQuery.of(context).size.width * 0.6,
+              child: Column(
+                children: [
+                  SearchTextField(
+                    controller: textEditingController,
+                    focusNode: focusNode,
+                  ),
+                  if (state is SearchLoading)
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width * 0.55,
+                      child: const LinearProgressIndicator(
+                        color: kMainColor,
+                        minHeight: 2.5,
+                      ),
+                    ),
+                ],
+              ),
+            );
+          },
         );
       },
     );
@@ -54,15 +70,15 @@ class AutocompleteExample extends StatelessWidget {
 }
 
 class OptionView extends StatelessWidget {
-  const OptionView(
-      {Key? key,
-      required this.context,
-      required this.onSelected,
-      required this.options})
-      : super(key: key);
+  const OptionView({
+    Key? key,
+    required this.context,
+    required this.onSelected,
+    required this.options,
+  }) : super(key: key);
   final BuildContext context;
-  final Function(String value) onSelected;
-  final Iterable<String> options;
+  final Function(Datum value) onSelected;
+  final Iterable<Datum> options;
 
   @override
   Widget build(BuildContext context) {
@@ -98,9 +114,10 @@ class OptionView extends StatelessWidget {
               height: 70,
               child: ListTile(
                 onTap: () => onSelected(option),
-                leading: Image.network(
-                    'https://student.valuxapps.com/storage/uploads/products/1615440322npwmU.71DVgBTdyLL._SL1500_.jpg'),
-                title: Text(option, textAlign: TextAlign.end),
+                leading: Image.network(option.image!
+                    // 'https://student.valuxapps.com/storage/uploads/products/1615440322npwmU.71DVgBTdyLL._SL1500_.jpg'
+                    ),
+                title: Text(option.name!, textAlign: TextAlign.end),
               ),
             );
           },

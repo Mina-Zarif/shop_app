@@ -9,7 +9,7 @@ class HomeViewBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    BlocProvider.of<CartCubit>(context).getCart();
+    // BlocProvider.of<CartCubit>(context).getCart();
     return Column(
       children: const [
         SizedBox(
